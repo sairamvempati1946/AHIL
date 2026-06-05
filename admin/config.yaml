@@ -1,0 +1,66 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "string"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "careers"
+    label: "Career Openings"
+    folder: "src/careers"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Category", name: "category", widget: "string"}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Experience", name: "experience", widget: "string"}
+      - {label: "Description", name: "description", widget: "markdown"}
+      - {label: "Status", name: "status", widget: "string", default: "active"}
+
+  - name: "gallery"
+    label: "Gallery"
+    folder: "src/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Category", name: "category", widget: "string"}
+      - {label: "Image URL", name: "imageUrl", widget: "image"}
+      - {label: "Date", name: "date", widget: "datetime"}
+
+  - name: "press"
+    label: "Press Releases"
+    folder: "src/press"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Content", name: "body", widget: "markdown"}
+
+  - name: "team"
+    label: "Leadership Team"
+    folder: "src/team"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Position", name: "position", widget: "string"}
+      - {label: "Bio", name: "bio", widget: "text"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Order", name: "order", widget: "number", default: 0}
