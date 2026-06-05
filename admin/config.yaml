@@ -63,3 +63,4 @@ collections:
       - {label: "Position", name: "position", widget: "string"}
       - {label: "Bio", name: "bio", widget: "text"}
       - {label: "Image", name: "image", widget: "image"}
+      - {label: "Order", name: "order", widget: "number", default: 0}
