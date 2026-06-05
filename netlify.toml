@@ -4,15 +4,25 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Redirects for SPA
+# Identity and Admin redirects
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
 
 [[redirects]]
+  from = "/.netlify/identity*"
+  to = "/.netlify/identity"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/logout"
+  to = "/"
   status = 200
 
 # Headers for security
@@ -22,7 +32,6 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[headers]]
   for = "/admin/*"
