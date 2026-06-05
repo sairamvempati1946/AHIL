@@ -17,22 +17,62 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.2;
+            pointer-events: none;
         }
         .login-container {
             background: white;
             border-radius: 24px;
-            padding: 40px;
-            max-width: 500px;
+            padding: 50px 40px;
+            max-width: 480px;
             width: 90%;
             text-align: center;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .logo {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .logo img {
             max-width: 180px;
             height: auto;
+        }
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2E9E1F, #4abe38);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .logo-placeholder i {
+            font-size: 40px;
+            color: white;
         }
         h1 {
             font-size: 1.8rem;
@@ -42,57 +82,113 @@
         p {
             color: #5a6b58;
             margin-bottom: 30px;
+            font-size: 0.95rem;
         }
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             background: #2E9E1F;
             color: white;
-            padding: 12px 30px;
+            padding: 14px 35px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
         }
         .btn:hover {
             background: #1a6b12;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(46,158,31,0.3);
+        }
+        .btn i {
+            font-size: 1.1rem;
         }
         .info {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 0.8rem;
+            border-top: 1px solid #e8f5e5;
+            font-size: 0.75rem;
             color: #999;
+        }
+        .info a {
+            color: #2E9E1F;
+            text-decoration: none;
+        }
+        .info a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            display: none;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #2E9E1F;
+        }
+        .loading.show {
+            display: block;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="logo">
-            <img src="../logo.svg" alt="Atirath Holdings" onerror="this.src='https://placehold.co/180x60/2E9E1F/white?text=ATIRATH'">
+        <div class="logo-placeholder">
+            <i class="fas fa-leaf"></i>
         </div>
         <h1>Content Manager</h1>
         <p>Login to manage your website content - Blog, Careers, Gallery, Team & more</p>
-        <a href="#" class="btn" id="loginBtn">
-            <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login with Netlify Identity
-        </a>
+        
+        <button class="btn" id="loginBtn">
+            <i class="fas fa-sign-in-alt"></i> Login with Netlify Identity
+        </button>
+        
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i> Redirecting to dashboard...
+        </div>
+        
         <div class="info">
-            ⚡ Need access? Contact your administrator
+            ⚡ Need access? Contact your administrator at <a href="mailto:admin@atirathholdings.com">admin@atirathholdings.com</a>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Netlify CMS -->
+    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
+    
     <script>
-        document.getElementById('loginBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            // This will be handled by Netlify Identity
-            if (typeof netlifyIdentity !== 'undefined') {
-                netlifyIdentity.open();
-            } else {
-                alert('Please deploy this site on Netlify to use the CMS. For local testing, use Netlify Dev.');
+        // Netlify Identity Widget Configuration
+        window.netlifyIdentity = window.netlifyIdentity || {};
+        window.netlifyIdentity.on('init', function(user) {
+            if (user) {
+                document.getElementById('loading').classList.add('show');
+                setTimeout(function() {
+                    window.location.href = '/admin/';
+                }, 1000);
             }
         });
+        
+        // Login button click handler
+        document.getElementById('loginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.netlifyIdentity.open();
+        });
+        
+        // Check if already logged in
+        if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
+            document.getElementById('loading').classList.add('show');
+            setTimeout(function() {
+                window.location.href = '/admin/';
+            }, 500);
+        }
     </script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
 </html>
