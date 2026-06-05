@@ -5,174 +5,61 @@ backend:
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-# Local backend for development (remove this when deploying to Netlify)
-# local_backend: true
-
 collections:
-  # ========== BLOG COLLECTION ==========
   - name: "blog"
-    label: "📝 Blog Posts"
-    label_singular: "Blog Post"
+    label: "Blog Posts"
     folder: "src/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    identifier_field: "title"
-    editor:
-      preview: true
     fields:
-      - {label: "Title", name: "title", widget: "string", required: true}
-      - {label: "Publish Date", name: "date", widget: "datetime", required: true}
-      - label: "Category"
-        name: "category"
-        widget: "select"
-        options:
-          - {label: "CBG Technology", value: "cbg"}
-          - {label: "Government Policies", value: "policy"}
-          - {label: "Biofuels", value: "biofuel"}
-          - {label: "Fertilizers", value: "fertilizer"}
-          - {label: "Sustainability", value: "sustainability"}
-        required: true
-      - {label: "Featured Image", name: "image", widget: "image", required: true}
-      - {label: "Excerpt", name: "excerpt", widget: "text", required: true}
-      - {label: "Content", name: "body", widget: "markdown", required: true}
-      - {label: "Author", name: "author", widget: "string", default: "Atirath Insights"}
-      - {label: "Read Time (minutes)", name: "readTime", widget: "number", default: 5}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "string"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
 
-  # ========== CAREERS COLLECTION ==========
   - name: "careers"
-    label: "💼 Career Openings"
-    label_singular: "Job Opening"
+    label: "Career Openings"
     folder: "src/careers"
     create: true
     slug: "{{slug}}"
-    identifier_field: "title"
     fields:
-      - {label: "Job Title", name: "title", widget: "string", required: true}
-      - label: "Category"
-        name: "category"
-        widget: "select"
-        options:
-          - {label: "Management", value: "management"}
-          - {label: "Engineering", value: "engineering"}
-          - {label: "Operations", value: "operations"}
-          - {label: "Agriculture", value: "agriculture"}
-        required: true
-      - {label: "Location", name: "location", widget: "string", required: true}
-      - {label: "Experience", name: "experience", widget: "string", required: true}
-      - {label: "Salary Range", name: "salary", widget: "string"}
-      - label: "Job Type"
-        name: "type"
-        widget: "select"
-        options:
-          - {label: "Full Time", value: "Full Time"}
-          - {label: "Part Time", value: "Part Time"}
-          - {label: "Contract", value: "Contract"}
-        default: "Full Time"
-      - {label: "Description", name: "description", widget: "markdown", required: true}
-      - {label: "Requirements", name: "requirements", widget: "list", required: true}
-      - label: "Status"
-        name: "status"
-        widget: "select"
-        options:
-          - {label: "Active", value: "active"}
-          - {label: "Closed", value: "closed"}
-        default: "active"
-      - {label: "Posted Date", name: "postedDate", widget: "datetime", default: ""}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Category", name: "category", widget: "string"}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Experience", name: "experience", widget: "string"}
+      - {label: "Description", name: "description", widget: "markdown"}
+      - {label: "Status", name: "status", widget: "string", default: "active"}
 
-  # ========== GALLERY COLLECTION ==========
   - name: "gallery"
-    label: "🖼️ Gallery"
-    label_singular: "Gallery Item"
+    label: "Gallery"
     folder: "src/gallery"
     create: true
     slug: "{{slug}}"
-    identifier_field: "title"
     fields:
-      - {label: "Title", name: "title", widget: "string", required: true}
-      - label: "Category"
-        name: "category"
-        widget: "select"
-        options:
-          - {label: "CBG Plants", value: "cbg"}
-          - {label: "Ground Breaking", value: "groundbreaking"}
-          - {label: "Ground Work", value: "groundwork"}
-          - {label: "MoU Signing Event", value: "mousigning"}
-        required: true
-      - label: "Media Type"
-        name: "mediaType"
-        widget: "select"
-        options:
-          - {label: "Image", value: "image"}
-          - {label: "Video", value: "video"}
-        required: true
-      - {label: "Image URL", name: "imageUrl", widget: "image", required: false}
-      - {label: "Video ID (YouTube)", name: "videoId", widget: "string", required: false}
-      - {label: "Date", name: "date", widget: "datetime", required: true}
-      - {label: "Description", name: "description", widget: "text", required: false}
-      - {label: "Display Order", name: "order", widget: "number", default: 0}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Category", name: "category", widget: "string"}
+      - {label: "Image URL", name: "imageUrl", widget: "image"}
+      - {label: "Date", name: "date", widget: "datetime"}
 
-  # ========== PRESS ROOM COLLECTION ==========
   - name: "press"
-    label: "📰 Press Room"
-    label_singular: "Press Release"
+    label: "Press Releases"
     folder: "src/press"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    identifier_field: "title"
     fields:
-      - {label: "Title", name: "title", widget: "string", required: true}
-      - {label: "Date", name: "date", widget: "datetime", required: true}
-      - label: "Type"
-        name: "type"
-        widget: "select"
-        options:
-          - {label: "Press Release", value: "Press Release"}
-          - {label: "Media Mention", value: "Media Mention"}
-          - {label: "Award", value: "Award"}
-          - {label: "Announcement", value: "Announcement"}
-        required: true
-      - {label: "Content", name: "body", widget: "markdown", required: true}
-      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Content", name: "body", widget: "markdown"}
 
-  # ========== LEADERSHIP TEAM COLLECTION ==========
   - name: "team"
-    label: "👥 Leadership Team"
-    label_singular: "Team Member"
+    label: "Leadership Team"
     folder: "src/team"
     create: true
     slug: "{{slug}}"
-    identifier_field: "name"
     fields:
-      - {label: "Name", name: "name", widget: "string", required: true}
-      - {label: "Position", name: "position", widget: "string", required: true}
-      - {label: "Qualification", name: "qualification", widget: "string"}
-      - {label: "Bio", name: "bio", widget: "text", required: true}
-      - {label: "Profile Image", name: "image", widget: "image", required: true}
-      - {label: "LinkedIn URL", name: "linkedin", widget: "string", required: false}
-      - {label: "Email", name: "email", widget: "string", required: false}
-      - {label: "Display Order", name: "order", widget: "number", default: 0}
-
-  # ========== PAGE CONTENT COLLECTION ==========
-  - name: "pages"
-    label: "📄 Page Content"
-    label_singular: "Page"
-    folder: "src/pages"
-    create: true
-    slug: "{{slug}}"
-    identifier_field: "page"
-    fields:
-      - label: "Page"
-        name: "page"
-        widget: "select"
-        options:
-          - {label: "Home Page", value: "home"}
-          - {label: "About Us", value: "about"}
-          - {label: "CBG Plant", value: "cbgplant"}
-          - {label: "Napier Grass", value: "napiergrass"}
-          - {label: "Contact Info", value: "contact"}
-        required: true
-      - {label: "Hero Title", name: "heroTitle", widget: "string"}
-      - {label: "Hero Description", name: "heroDescription", widget: "text"}
-      - {label: "Main Content", name: "body", widget: "markdown"}
-      - {label: "SEO Title", name: "seoTitle", widget: "string"}
-      - {label: "SEO Description", name: "seoDescription", widget: "text"}
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Position", name: "position", widget: "string"}
+      - {label: "Bio", name: "bio", widget: "text"}
+      - {label: "Image", name: "image", widget: "image"}
